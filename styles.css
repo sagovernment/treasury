@@ -17,7 +17,7 @@ body {
     background-color: #333;
     color: white;
     width: 250px;
-    padding: 1em 0;
+    padding: 0;
     display: flex;
     flex-direction: column;
     position: fixed; /* Фиксация меню */
@@ -25,14 +25,39 @@ body {
     overflow-y: auto;
 }
 
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Центрирование содержимого по горизонтали */
+    padding: 10px;
+    background-color: #444;
+    top: 0;
+    z-index: 1;
+    flex-direction: row; /* Размещение картинки и текста по горизонтали */
+}
+
+.sidebar-header .logo {
+    width: 50px;
+    height: auto;
+    margin-right: 10px; /* Отступ между картинкой и текстом */
+}
+
+.sidebar-header h2 {
+    font-size: 1.5em;
+    margin: 0;
+    text-align: center; /* Центрирование текста */
+}
+
+/* Стили для списка меню */
 .sidebar ul {
     list-style: none;
     padding: 0;
     margin: 0;
+    flex-grow: 1;
 }
 
 .sidebar li {
-    margin-bottom: 1em;
+    margin-bottom: 0; /* Убираем отступы между пунктами меню */
 }
 
 .sidebar a {
@@ -46,6 +71,11 @@ body {
 .sidebar a:hover {
     background-color: #444;
     text-decoration: underline;
+}
+
+/* Добавление отступа между заголовком и пунктами меню */
+.sidebar-header + ul {
+    margin-top: 20px; /* Отступ между заголовком и меню */
 }
 
 /* Стили для контента */
