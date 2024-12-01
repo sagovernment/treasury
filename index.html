@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Tabbed Menu</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Левое меню -->
+        <nav class="sidebar">
+            <ul id="menu"></ul>
+        </nav>
+
+        <!-- Правый контент -->
+        <div class="content" id="content"></div>
+    </div>
+
+    <script>
+        // Данные для вкладок
+        const tabs = [
+            { id: 'tab1', title: 'Привет с большого бадуна', formUrl: 'https://docs.google.com/forms/d/e/FORM_ID_1/viewform' },
+            { id: 'tab2', title: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.', formUrl: 'https://docs.google.com/forms/d/e/FORM_ID_2/viewform' },
+            { id: 'tab3', title: 'Form 3', formUrl: 'https://docs.google.com/forms/d/e/FORM_ID_3/viewform' }
+        ];
+
+        // Элементы DOM
+        const menu = document.getElementById('menu');
+        const content = document.getElementById('content');
+
+        // Генерация меню и вкладок
+        tabs.forEach((tab, index) => {
+            // Создание пункта меню
+            const menuItem = document.createElement('li');
+            const menuLink = document.createElement('a');
+            menuLink.href = `#${tab.id}`;
+            menuLink.classList.add('tab-link');
+            menuLink.textContent = tab.title;
+            menuItem.appendChild(menuLink);
+            menu.appendChild(menuItem);
+
+            // Создание вкладки
+            const tabSection = document.createElement('section');
+            tabSection.id = tab.id;
+            tabSection.classList.add('tab');
+            if (index === 0) tabSection.classList.add('active'); // Первая вкладка активна по умолчанию
+            tabSection.innerHTML = `
+                <h1>${tab.title}</h1>
+                <iframe src="${tab.formUrl}" frameborder="0" width="100%" height="600"></iframe>
+            `;
+            content.appendChild(tabSection);
+        });
+
+        // Обработка переключения вкладок
+        document.querySelectorAll('.tab-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+                const targetId = link.getAttribute('href').substring(1);
+                document.getElementById(targetId).classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
